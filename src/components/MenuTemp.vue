@@ -37,7 +37,7 @@ onUpdated(() => {
     >
       <div
         v-if="isMenuOpen"
-        class="absolute flex flex-col mt-1 space-y-1 right-0 border border-white rounded-sm"
+        class="absolute flex flex-col mt-1 right-0 border border-white rounded-sm"
       >
         <button
           @click="changeTemp"

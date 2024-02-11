@@ -1,32 +1,43 @@
+<script setup>
+import { ref } from 'vue'
+
+const isMenuOpen = ref(false)
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+</script>
+
 <template>
   <div class="relative">
-    <button class="optionbtn">Male, Maldives</button>
+    <button @click="toggleMenu" class="optionbtn">Male, Maldives</button>
     <div
-      class="absolute right-0 mt-1 flex flex-col space-y-1 text-white border border-white rounded-sm"
+      v-if="isMenuOpen"
+      class="absolute right-0 mt-1 flex flex-col text-white border border-white rounded-sm text-nowrap"
     >
-      <a
-        class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-0 rounded-sm"
-        >Male, Maldives</a
+      <button
+        class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 rounded-sm"
+        >Male, Maldives</button
       >
-      <a
+      <button
         class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
-        >London, United Kingdom</a
+        >London, United Kingdom</button
       >
-      <a
+      <button
         class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
-        >New York, United States</a
+        >New York, United States</button
       >
-      <a
+      <button
         class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
-        >Tokyo, Japan</a
+        >Tokyo, Japan</button
       >
-      <a
+      <button
         class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
-        >Sydney, Australia</a
+        >Sydney, Australia</button
       >
-      <a
+      <button
         class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
-        >Cape Town, South Africa</a
+        >Cape Town, South Africa</button
       >
     </div>
   </div>
