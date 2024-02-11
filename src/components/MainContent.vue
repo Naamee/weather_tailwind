@@ -13,24 +13,11 @@ const currentCode = ref(weatherStore.weather?.current?.condition?.code)
 
 const currentTemp = ref(null)
 const loading = ref(true)
-const currentTheme = ref('daySunny')
-
-const determineTheme = async () => {
-  const themeSet = await weatherStore.getMatchingWeatherCode(currentCode.value)
-  const isDay = weatherStore.weather?.current?.is_day
-
-  if (isDay) {
-    currentTheme.value = themeSet?.[0]
-  } else {
-    currentTheme.value = themeSet?.[1]
-  }
-}
 
 async function updateWeather() {
   await weatherStore.fetchWeather('Maldives')
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
-  determineTheme()
 }
 
 onMounted(async () => {
@@ -39,7 +26,6 @@ onMounted(async () => {
   currentCode.value = weatherStore.weather?.current?.condition?.code
   await weatherStore.getMatchingTemperature('°C')
   currentTemp.value = await weatherStore.temp
-  determineTheme()
   loading.value = false
 
   setInterval(updateWeather, 30000)
