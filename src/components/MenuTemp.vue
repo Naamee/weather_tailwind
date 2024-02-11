@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onUpdated } from 'vue'
 import { useWeatherStore } from '@/stores/weatherStore'
+import { onClickOutside } from '@vueuse/core'
 
+const target = ref(null)
 const isMenuOpen = ref(false)
 const currentTemp = ref('°C')
 const weatherStore = useWeatherStore()
@@ -15,13 +17,15 @@ const changeTemp = (temp) => {
   isMenuOpen.value = false
 }
 
+onClickOutside(target, () => isMenuOpen.value = false)
+
 onUpdated(() => {
     weatherStore.getMatchingTemperature(currentTemp.value)
 })
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" ref="target">
     <button @click="toggleMenu" class="optionbtn">{{ currentTemp }}</button>
     <transition
       enter-active-class="transition duration-100 ease-out"
@@ -37,11 +41,11 @@ onUpdated(() => {
       >
         <button
           @click="changeTemp"
-          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
+          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-50/50"
         >°C</button>
         <button
           @click="changeTemp"
-          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm"
+          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-50/50"
         >°F</button>
       </div>
     </transition>
