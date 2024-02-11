@@ -1,16 +1,28 @@
 <script setup>
 import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 import SearchIcon from './icons/SearchIcon.vue'
+import { useWeatherStore } from '@/stores/weatherStore';
 
+const target = ref(null)
+const currentLocation = ref('')
 const isSearchOpen = ref(false)
+const weatherStore = useWeatherStore()
 
 function toggleSearch() {
   isSearchOpen.value = !isSearchOpen.value
 }
+
+async function updateWeather(currentLocation) {
+  await weatherStore.fetchWeather(currentLocation)
+  isSearchOpen.value = false
+}
+
+onClickOutside(target, () => (isSearchOpen.value = false))
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" ref="target">
     <button @click="toggleSearch" class="optionbtn flex items-center"><SearchIcon /></button>
     <transition
       enter-active-class="transition duration-100 ease-out"
@@ -22,6 +34,9 @@ function toggleSearch() {
     >
       <div v-if="isSearchOpen" class="absolute right-0 mt-2">
         <input
+          @keydown.enter="updateWeather(currentLocation)"
+          v-model="currentLocation"
+          name="search"
           type="text"
           class="search p-1 rounded-sm outline-none border-none outline-blue-300 focus:outline-blue-700"
           placeholder="Search Location"

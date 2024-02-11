@@ -13,26 +13,30 @@ const currentCode = ref(weatherStore.weather?.current?.condition?.code)
 
 const currentTemp = ref(null)
 const loading = ref(true)
+const currentLocation = ref(weatherStore.location)
 
 async function updateWeather() {
-  await weatherStore.fetchWeather('Maldives')
+  await weatherStore.fetchWeather(currentLocation.value)
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
+  await weatherStore.getLocation()
+  currentLocation.value = weatherStore.location
 }
 
 onMounted(async () => {
-  await weatherStore.fetchWeather('Maldives')
+  await weatherStore.fetchWeather(currentLocation.value)
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
   await weatherStore.getMatchingTemperature('°C')
   currentTemp.value = await weatherStore.temp
   loading.value = false
-
   setInterval(updateWeather, 30000)
 })
 
 watchEffect(() => {
   currentTemp.value = weatherStore.temp
+  currentLocation.value = weatherStore.location
+  weather.value = weatherStore.weather
 })
 </script>
 

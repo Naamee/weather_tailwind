@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
@@ -5,6 +6,7 @@ export const useWeatherStore = defineStore('weather', {
     state: () => ({
         weather: {},
         temp: '',
+        location: 'Maldives',
         // codes: {
         //     1000: ['daySunny', 'nightClear'],
         //     1003: ['dayPartlyCloudy', 'nightPartlyCloudy'],
@@ -75,12 +77,17 @@ export const useWeatherStore = defineStore('weather', {
             }
             return state.temp  
         },
+        getLocation: (state) => () => {
+            state.location = state.weather.location.name
+            return state.location
+        },
     },
     actions: {
-        async fetchWeather(location) {
+        async fetchWeather(location='Maldives') {
             try {
                 const response = await axios.get(`https://api.weatherapi.com/v1/current.json?key=ada7181c6d27402281863954240502&q=${location}`)
                 this.weather = response.data
+                this.getLocation()
             } catch (error) {
                 console.error(error)
             }
