@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useWeatherStore = defineStore('weather', {
     state: () => ({
         weather: {},
+        temp: '',
         codes: {
             1000: ['daySunny', 'nightClear'],
             1003: ['dayPartlyCloudy', 'nightPartlyCloudy'],
@@ -64,7 +65,16 @@ export const useWeatherStore = defineStore('weather', {
         },
         getMatchingWeatherCode: (state) => (code) => {
             return state.codes[code];
-        }
+        },
+        getMatchingTemperature: (state) => (type) => {
+            if (type === '°F') {
+                state.temp = state.weather.current.temp_f + '°F'
+            }
+            else {
+                state.temp = state.weather.current.temp_c + '°C'
+            }
+            return state.temp  
+        },
     },
     actions: {
         async fetchWeather(location) {

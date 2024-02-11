@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  weather: Object,
+  weather: String,
   source: String,
   weatherText: String
 })

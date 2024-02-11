@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 import { useWeatherStore } from '@/stores/weatherStore'
 import MainTemp from './MainTemp.vue'
 import MainOptions from './MainOptions.vue'
@@ -11,6 +11,7 @@ const weatherStore = useWeatherStore()
 const weather = ref(weatherStore.weather)
 const currentCode = ref(weatherStore.weather?.current?.condition?.code)
 
+const currentTemp = ref(null)
 const loading = ref(true)
 const currentTheme = ref('daySunny')
 
@@ -36,10 +37,16 @@ onMounted(async () => {
   await weatherStore.fetchWeather('Maldives')
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
+  await weatherStore.getMatchingTemperature('°C')
+  currentTemp.value = await weatherStore.temp
   determineTheme()
   loading.value = false
 
   setInterval(updateWeather, 30000)
+})
+
+watchEffect(() => {
+  currentTemp.value = weatherStore.temp
 })
 </script>
 
@@ -48,7 +55,7 @@ onMounted(async () => {
   <div v-else>
     <MainOptions />
     <MainTemp
-      :weather="weather?.current?.temp_c + '°C'"
+      :weather="currentTemp"
       :source="weather?.current?.condition?.icon"
       :weatherText="weather?.current?.condition?.text"
     />
