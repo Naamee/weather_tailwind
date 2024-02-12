@@ -5,6 +5,7 @@ import MainTemp from './MainTemp.vue'
 import MainOptions from './MainOptions.vue'
 import MainLocation from './MainLocation.vue'
 import MainError from './MainError.vue'
+import ForecastCard from './ForecastCard.vue'
 import TheProgressLoader from './TheProgressLoader.vue'
 
 const weatherStore = useWeatherStore()
@@ -45,17 +46,24 @@ watchEffect(() => {
 <template>
   <TheProgressLoader v-if="loading" />
   <div v-else>
-    <MainOptions />
-    <MainTemp
-      :weather="currentTemp"
-      :source="weather?.current?.condition?.icon"
-      :weatherText="weather?.current?.condition?.text"
-    />
-    <MainLocation
-      :locationName="weather?.location?.name"
-      :locationCountry="weather?.location?.country"
-      :locationLocaltime="weather?.location?.localtime"
-    />
-    <MainError v-if="notFound" />
+    <div>
+      <MainOptions />
+      <MainTemp
+        :weather="currentTemp"
+        :source="weather?.current?.condition?.icon"
+        :weatherText="weather?.current?.condition?.text"
+      />
+      <MainLocation
+        :locationName="weather?.location?.name"
+        :locationCountry="weather?.location?.country"
+        :locationLocaltime="weather?.location?.localtime"
+      />
+      <MainError v-if="notFound" />
+    </div>
+    <div class="flex justify-center space-x-5">
+      <ForecastCard />
+      <ForecastCard />
+      <ForecastCard />
+    </div>
   </div>
 </template>
