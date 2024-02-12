@@ -91,6 +91,7 @@ export const useWeatherStore = defineStore('weather', {
                 this.weather = response.data
                 this.notFound = false
                 this.getLocation()
+                await this.fetchForecast(location)
             } catch (error) {
                 this.notFound = true
                 console.error(error)

@@ -5,7 +5,7 @@ import MainTemp from './MainTemp.vue'
 import MainOptions from './MainOptions.vue'
 import MainLocation from './MainLocation.vue'
 import MainError from './MainError.vue'
-import ForecastCard from './ForecastCard.vue'
+import ForecastMain from './ForecastMain.vue'
 import TheProgressLoader from './TheProgressLoader.vue'
 
 const weatherStore = useWeatherStore()
@@ -32,6 +32,7 @@ onMounted(async () => {
   await weatherStore.getMatchingTemperature('°C')
   currentTemp.value = await weatherStore.temp
   loading.value = false
+
   setInterval(updateWeather, 30000)
 })
 
@@ -58,12 +59,8 @@ watchEffect(() => {
         :locationCountry="weather?.location?.country"
         :locationLocaltime="weather?.location?.localtime"
       />
-      <MainError v-if="notFound" />
+      <MainError v-if="notFound"/>
     </div>
-    <div class="flex justify-center space-x-5">
-      <ForecastCard />
-      <ForecastCard />
-      <ForecastCard />
-    </div>
+    <ForecastMain v-if="!notFound"/>
   </div>
 </template>
