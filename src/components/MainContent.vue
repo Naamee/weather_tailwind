@@ -49,18 +49,18 @@ watchEffect(() => {
   <div v-else>
     <div>
       <MainOptions />
-      <MainTemp
-        :weather="currentTemp"
-        :source="weather?.current?.condition?.icon"
-        :weatherText="weather?.current?.condition?.text"
-      />
-      <MainLocation
-        :locationName="weather?.location?.name"
-        :locationCountry="weather?.location?.country"
-        :locationLocaltime="weather?.location?.localtime"
-      />
-      <MainError v-if="notFound"/>
+        <MainTemp
+          :weather="currentTemp"
+          :source="weather?.current?.condition?.icon"
+          :weatherText="weather?.current?.condition?.text"
+        />
+        <MainLocation
+          :locationName="weather?.location?.name"
+          :locationCountry="weather?.location?.country"
+          :locationLocaltime="weather?.location?.localtime"
+        />
+        <MainError v-if="notFound" />
+        <ForecastMain v-if="!notFound" />
     </div>
-    <ForecastMain v-if="!notFound"/>
   </div>
 </template>

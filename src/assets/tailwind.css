@@ -9,7 +9,7 @@
 
 @layer components {
     .optionbtn {
-        @apply border border-white/50 px-2 rounded-sm text-white/50 hover:text-white hover:border-white active:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-50/50;
+        @apply border border-white/50 px-10 rounded-full text-white/50 hover:text-white hover:border-white active:bg-white/10 focus:outline-none focus:ring-1 focus:ring-sky-50/50;
     }
 }
 

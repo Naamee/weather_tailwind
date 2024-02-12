@@ -16,5 +16,4 @@ const props = defineProps({
     <img :src="props.source" class="h-5 mr-1">
     <p class="font-xs lowercase">{{ props.weatherText }}</p>  
   </div>
-
 </template>

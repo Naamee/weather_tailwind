@@ -99,7 +99,7 @@ export const useWeatherStore = defineStore('weather', {
         },
         async fetchForecast(location='Maldives') {
             try {
-                const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=ada7181c6d27402281863954240502&q=${location}&days=3`)
+                const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=ada7181c6d27402281863954240502&q=${location}&days=4`)
                 this.forecast = response.data
             } catch (error) {
                 console.error(error)

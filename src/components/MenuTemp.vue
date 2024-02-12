@@ -17,10 +17,10 @@ const changeTemp = (temp) => {
   isMenuOpen.value = false
 }
 
-onClickOutside(target, () => isMenuOpen.value = false)
+onClickOutside(target, () => (isMenuOpen.value = false))
 
 onUpdated(() => {
-    weatherStore.getMatchingTemperature(currentTemp.value)
+  weatherStore.getMatchingTemperature(currentTemp.value)
 })
 </script>
 
@@ -37,15 +37,15 @@ onUpdated(() => {
     >
       <div
         v-if="isMenuOpen"
-        class="absolute flex flex-col mt-1 right-0 border border-white rounded-sm"
+        class="absolute flex flex-col mt-1 right-4 w-16 border border-white rounded-sm"
       >
         <button
           @click="changeTemp"
-          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-50/50"
+          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-900/50 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-900/50"
         >°C</button>
         <button
           @click="changeTemp"
-          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-700 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-50/50"
+          class="text-white/50 hover:text-white hover:bg-blue-600/50 active:bg-blue-900/50 px-4 rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-900/50"
         >°F</button>
       </div>
     </transition>

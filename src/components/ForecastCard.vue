@@ -4,6 +4,7 @@ import { useWeatherStore } from '@/stores/weatherStore'
 
 const props = defineProps({
   icon: String,
+  date: String,
   tempC: Number,
   tempF: Number,
   condition: String,
@@ -27,14 +28,14 @@ watchEffect(() => {
 
 <template>
   <div
-    class="flex flex-col items-center mt-4 p-4 rounded-md border border-white bg-blue-950/25 text-white font-nunito"
+    class="flex flex-col items-center w-36 mt-4 p-4 rounded-md bg-gray-200 text-black font-nunito"
   >
-    <img :src="props.icon" class="w-10" />
-    <div class="flex flex-col items-center mt-2">
-      <p v-if="isCelsius" class="text-xl">{{ props.tempC }} °C</p>
-      <p v-if="!isCelsius" class="text-xl">{{ props.tempF }} °F</p>
-      <p class="text-xs mt-1">{{ props.condition }}</p>
-      <p class="text-xs">Chance of Rain: {{ props.chanceOfRain }}%</p>
+    <p class="text-xs font-semibold">{{ props.date }}</p>
+    <img :src="props.icon" class="w-10 mt-1" />
+    <p class="text-xs font-semibold">{{ props.condition }}</p>
+    <div class="flex flex-col items-center mt-2 text-xl font-bold">
+      <p v-if="isCelsius">{{ props.tempC }} °C</p>
+      <p v-if="!isCelsius">{{ props.tempF }} °F</p>
     </div>
   </div>
 </template>

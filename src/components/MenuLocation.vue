@@ -38,7 +38,7 @@ onClickOutside(target, () => (isSearchOpen.value = false))
           v-model="currentLocation"
           name="search"
           type="text"
-          class="search p-1 rounded-sm outline-none border-none outline-blue-300 focus:outline-blue-600 font-nunito bg-white/25 placeholder-gray-500"
+          class="search p-1 pl-2 rounded-full outline-none border-none outline-blue-900 focus:outline-blue-600 font-nunito bg-white/25 placeholder-gray-500"
           placeholder="Search Location"
         />
       </div>
