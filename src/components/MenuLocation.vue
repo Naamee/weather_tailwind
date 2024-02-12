@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import SearchIcon from './icons/SearchIcon.vue'
-import { useWeatherStore } from '@/stores/weatherStore';
+import { useWeatherStore } from '@/stores/weatherStore'
 
 const target = ref(null)
 const currentLocation = ref('')
@@ -38,7 +38,7 @@ onClickOutside(target, () => (isSearchOpen.value = false))
           v-model="currentLocation"
           name="search"
           type="text"
-          class="search p-1 rounded-sm outline-none border-none outline-blue-300 focus:outline-blue-700"
+          class="search p-1 rounded-sm outline-none border-none outline-blue-300 focus:outline-blue-600 font-nunito bg-white/25 placeholder-gray-500"
           placeholder="Search Location"
         />
       </div>

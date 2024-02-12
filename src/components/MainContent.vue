@@ -4,8 +4,8 @@ import { useWeatherStore } from '@/stores/weatherStore'
 import MainTemp from './MainTemp.vue'
 import MainOptions from './MainOptions.vue'
 import MainLocation from './MainLocation.vue'
+import MainError from './MainError.vue'
 import TheProgressLoader from './TheProgressLoader.vue'
-
 
 const weatherStore = useWeatherStore()
 const weather = ref(weatherStore.weather)
@@ -52,6 +52,8 @@ watchEffect(() => {
     <MainLocation
       :locationName="weather?.location?.name"
       :locationCountry="weather?.location?.country"
-      :locationLocaltime="weather?.location?.localtime" />
+      :locationLocaltime="weather?.location?.localtime"
+    />
+    <MainError />
   </div>
 </template>
