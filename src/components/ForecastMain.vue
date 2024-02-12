@@ -4,56 +4,54 @@ import { useWeatherStore } from '@/stores/weatherStore'
 import ForecastCard from './ForecastCard.vue'
 
 const weatherStore = useWeatherStore()
-const forecast = ref(weatherStore?.forecast?.forecast?.forecastday)
-const day1 = ref(null)
-const day2 = ref(null)
-const day3 = ref(null)
-const date1 = ref(null)
-const date2 = ref(null)
-const date3 = ref(null)
+const forecast = ref({})
+const days = ref([null, null, null]);
+const dates = ref([null, null, null]);
+
+
+const updateForecast = () => {
+  const forecastData = weatherStore.forecast?.forecast?.forecastday || []; //get the forecast data
+  forecast.value = forecastData; 
+  for (let i =  1; i <=  3; i++) { //start from 1 to skip today's forecast
+    days.value[i -  1] = forecastData[i]?.day || null; //get the forecast for the next 3 days
+    dates.value[i -  1] = forecastData[i]?.date || null; //get the date for the next 3 days
+  }
+};
 
 onMounted(async () => {
   await weatherStore.fetchWeather() //call to ensure the forecast is available
 })
 
-//update the forecast
 watchEffect(() => {
-  forecast.value = weatherStore?.forecast?.forecast?.forecastday 
-  day1.value = forecast.value[1]['day'] 
-  day2.value = forecast.value[2]['day']
-  day3.value = forecast.value[3]['day']
-  date1.value = forecast.value[1]['date']
-  date2.value = forecast.value[2]['date']
-  date3.value = forecast.value[3]['date']
-})
-
+    updateForecast(); //update the forecast according to changes
+});
 </script>
 
 <template>
   <div class="flex justify-center space-x-5">
     <ForecastCard
-      :icon="day1?.condition?.icon"
-      :date="date1"
-      :temp-c="day1?.avgtemp_c"
-      :temp-f="day1?.avgtemp_f"
-      :condition="day1?.condition?.text"
-      :chance-of-rain="day1?.daily_chance_of_rain"
+      :icon="days[0]?.condition?.icon"
+      :date="dates[0]"
+      :temp-c="days[0]?.avgtemp_c"
+      :temp-f="days[0]?.avgtemp_f"
+      :condition="days[0]?.condition?.text"
+      :chance-of-rain="days[0]?.daily_chance_of_rain"
     />
     <ForecastCard
-      :icon="day2?.condition?.icon"
-      :date="date2"
-      :temp-c="day2?.avgtemp_c"
-      :temp-f="day2?.avgtemp_f"
-      :condition="day2?.condition?.text"
-      :chance-of-rain="day2?.daily_chance_of_rain"
+      :icon="days[1]?.condition?.icon"
+      :date="dates[1]"
+      :temp-c="days[1]?.avgtemp_c"
+      :temp-f="days[1]?.avgtemp_f"
+      :condition="days[1]?.condition?.text"
+      :chance-of-rain="days[1]?.daily_chance_of_rain"
     />
     <ForecastCard
-      :icon="day3?.condition?.icon"
-      :date="date3"
-      :temp-c="day3?.avgtemp_c"
-      :temp-f="day3?.avgtemp_f"
-      :condition="day3?.condition?.text"
-      :chance-of-rain="day3?.daily_chance_of_rain"
+      :icon="days[2]?.condition?.icon"
+      :date="dates[2]"
+      :temp-c="days[2]?.avgtemp_c"
+      :temp-f="days[2]?.avgtemp_f"
+      :condition="days[2]?.condition?.text"
+      :chance-of-rain="days[2]?.daily_chance_of_rain"
     />
   </div>
 </template>
