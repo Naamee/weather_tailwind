@@ -21,7 +21,7 @@ watchEffect(() => {
   if (temp.value.endsWith('°C')) {
     isCelsius.value = true
   } else {
-    isCelsius.value = false
+    isCelsius.value = false // °F
   }
 })
 </script>

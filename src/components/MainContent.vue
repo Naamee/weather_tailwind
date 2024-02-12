@@ -10,7 +10,7 @@ import TheProgressLoader from './TheProgressLoader.vue'
 
 const weatherStore = useWeatherStore()
 const weather = ref(weatherStore.weather)
-const currentCode = ref(weatherStore.weather?.current?.condition?.code)
+const currentCode = ref(weatherStore.weather?.current?.condition?.code) //current weather code
 
 const currentTemp = ref(null)
 const loading = ref(true)
@@ -22,7 +22,7 @@ async function updateWeather() {
   notFound.value = weatherStore.notFound
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
-  await weatherStore.getLocation()
+  await weatherStore.getLocation() 
   currentLocation.value = weatherStore.location
 }
 
@@ -33,9 +33,10 @@ onMounted(async () => {
   currentTemp.value = await weatherStore.temp
   loading.value = false
 
-  setInterval(updateWeather, 30000)
+  setInterval(updateWeather, 30000) //update weather every 30 seconds with fetch request
 })
 
+//update the weather according to changes
 watchEffect(() => {
   currentTemp.value = weatherStore.temp
   currentLocation.value = weatherStore.location
@@ -45,7 +46,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <TheProgressLoader v-if="loading" />
+  <TheProgressLoader v-if="loading" /> <!--show loader while fetching weather-->
   <div v-else>
     <div>
       <MainOptions />
@@ -59,7 +60,7 @@ watchEffect(() => {
           :locationCountry="weather?.location?.country"
           :locationLocaltime="weather?.location?.localtime"
         />
-        <MainError v-if="notFound" />
+        <MainError v-if="notFound" /> <!--show error message if location not found-->
         <ForecastMain v-if="!notFound" />
     </div>
   </div>

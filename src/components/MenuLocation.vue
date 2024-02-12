@@ -18,7 +18,7 @@ async function updateWeather(currentLocation) {
   isSearchOpen.value = false
 }
 
-onClickOutside(target, () => (isSearchOpen.value = false))
+onClickOutside(target, () => (isSearchOpen.value = false)) //close search input when clicked outside
 </script>
 
 <template>

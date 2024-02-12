@@ -13,12 +13,13 @@ const date2 = ref(null)
 const date3 = ref(null)
 
 onMounted(async () => {
-  await weatherStore.fetchWeather()
+  await weatherStore.fetchWeather() //call to ensure the forecast is available
 })
 
+//update the forecast
 watchEffect(() => {
-  forecast.value = weatherStore?.forecast?.forecast?.forecastday
-  day1.value = forecast.value[1]['day']
+  forecast.value = weatherStore?.forecast?.forecast?.forecastday 
+  day1.value = forecast.value[1]['day'] 
   day2.value = forecast.value[2]['day']
   day3.value = forecast.value[3]['day']
   date1.value = forecast.value[1]['date']

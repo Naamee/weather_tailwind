@@ -17,10 +17,10 @@ const changeTemp = (temp) => {
   isMenuOpen.value = false
 }
 
-onClickOutside(target, () => (isMenuOpen.value = false))
+onClickOutside(target, () => (isMenuOpen.value = false)) //close menu when clicked outside
 
 onUpdated(() => {
-  weatherStore.getMatchingTemperature(currentTemp.value)
+  weatherStore.getMatchingTemperature(currentTemp.value) //update the temperature according to the selected unit
 })
 </script>
 
