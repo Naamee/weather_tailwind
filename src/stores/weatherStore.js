@@ -6,7 +6,7 @@ export const useWeatherStore = defineStore('weather', {
     state: () => ({
         weather: {},
         temp: '',
-        location: 'Maldives',
+        location: 'Male,Maldives',
         // codes: {
         //     1000: ['daySunny', 'nightClear'],
         //     1003: ['dayPartlyCloudy', 'nightPartlyCloudy'],
@@ -78,7 +78,7 @@ export const useWeatherStore = defineStore('weather', {
             return state.temp  
         },
         getLocation: (state) => () => {
-            state.location = state.weather.location.name
+            state.location = state.weather.location.name + ',' + state.weather.location.country
             return state.location
         },
     },
