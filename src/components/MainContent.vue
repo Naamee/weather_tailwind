@@ -13,10 +13,12 @@ const currentCode = ref(weatherStore.weather?.current?.condition?.code)
 
 const currentTemp = ref(null)
 const loading = ref(true)
+const notFound = ref(false)
 const currentLocation = ref(weatherStore.location)
 
 async function updateWeather() {
   await weatherStore.fetchWeather(currentLocation.value)
+  notFound.value = weatherStore.notFound
   weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
   await weatherStore.getLocation()
@@ -25,7 +27,6 @@ async function updateWeather() {
 
 onMounted(async () => {
   await weatherStore.fetchWeather(currentLocation.value)
-  weather.value = weatherStore.weather
   currentCode.value = weatherStore.weather?.current?.condition?.code
   await weatherStore.getMatchingTemperature('°C')
   currentTemp.value = await weatherStore.temp
@@ -37,6 +38,7 @@ watchEffect(() => {
   currentTemp.value = weatherStore.temp
   currentLocation.value = weatherStore.location
   weather.value = weatherStore.weather
+  notFound.value = weatherStore.notFound
 })
 </script>
 
@@ -54,6 +56,6 @@ watchEffect(() => {
       :locationCountry="weather?.location?.country"
       :locationLocaltime="weather?.location?.localtime"
     />
-    <MainError />
+    <MainError v-if="notFound" />
   </div>
 </template>

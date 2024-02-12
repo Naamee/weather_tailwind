@@ -7,6 +7,7 @@ export const useWeatherStore = defineStore('weather', {
         weather: {},
         temp: '',
         location: 'Male,Maldives',
+        notFound: false,
         // codes: {
         //     1000: ['daySunny', 'nightClear'],
         //     1003: ['dayPartlyCloudy', 'nightPartlyCloudy'],
@@ -87,8 +88,10 @@ export const useWeatherStore = defineStore('weather', {
             try {
                 const response = await axios.get(`https://api.weatherapi.com/v1/current.json?key=ada7181c6d27402281863954240502&q=${location}`)
                 this.weather = response.data
+                this.notFound = false
                 this.getLocation()
             } catch (error) {
+                this.notFound = true
                 console.error(error)
             }
         },
