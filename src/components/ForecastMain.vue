@@ -45,13 +45,5 @@ watchEffect(() => {
       :condition="days[1]?.condition?.text"
       :chance-of-rain="days[1]?.daily_chance_of_rain"
     />
-    <ForecastCard
-      :icon="days[2]?.condition?.icon"
-      :date="dates[2]"
-      :temp-c="days[2]?.avgtemp_c"
-      :temp-f="days[2]?.avgtemp_f"
-      :condition="days[2]?.condition?.text"
-      :chance-of-rain="days[2]?.daily_chance_of_rain"
-    />
   </div>
 </template>
